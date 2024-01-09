@@ -21,7 +21,6 @@ from sklearn.metrics import accuracy_score
 model_save_path = 'streamlit-models/'
 
 smoke_detector_data = pd.read_csv('smoke_detector.csv')
-smoke_detector_data.columns = smoke_detector_data.columns.str.replace('[', '').str.replace(']', '').str.replace('<', '')
 X = smoke_detector_data.drop('Fire Alarm_Yes', axis=1)
 y = smoke_detector_data['Fire Alarm_Yes']
 
