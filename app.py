@@ -21,11 +21,7 @@ from sklearn.metrics import accuracy_score
 model_save_path = 'streamlit-models/'
 
 smoke_detector_data = pd.read_csv('smoke_detector.csv')
-X = smoke_detector_data.drop('Fire Alarm_Yes', axis=1)
-y = smoke_detector_data['Fire Alarm_Yes']
-
-# Разделение на обучающую и тестовую выборки
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+smoke_detector_data.columns = smoke_detector_data.columns.str.replace('[', '').str.replace(']', '').str.replace('<', '')
 
 def load_models():
     model_ml1 = pickle.load(open(model_save_path + 'model_ml1.pkl', 'rb'))
@@ -158,6 +154,9 @@ def load_models():
     return model_ml1, model_ml3, model_ml4, model_ml5, model_ml6, model_ml2
 
 def page_ml_prediction():
+    X = smoke_detector_data.drop('Fire Alarm_Yes', axis=1)
+    y = smoke_detector_data['Fire Alarm_Yes']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     st.title("Предсказания моделей машинного обучения")
 
     # Виджет для загрузки файла
@@ -202,6 +201,11 @@ def page_ml_prediction():
             st.success(f"Результат предсказания нейронной сети Tensorflow: {prediction_ml6[0]}")
     else:
         try:
+            smoke_data = pd.read_csv('smoke_detector.csv')
+            smoke_data.columns = smoke_data.columns.str.replace('[', '').str.replace(']', '').str.replace('<', '')
+            X = smoke_data.drop('Fire Alarm_Yes', axis=1)
+            y = smoke_data['Fire Alarm_Yes']
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
             model_ml2 = pickle.load(open(model_save_path + 'kmeans_model.pkl', 'rb'))
             model_ml1 = pickle.load(open(model_save_path + 'model_ml1.pkl', 'rb'))
             model_ml4 = pickle.load(open(model_save_path + 'model_ml4.pkl', 'rb'))
