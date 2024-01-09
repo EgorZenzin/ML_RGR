@@ -18,7 +18,7 @@ from sklearn.pipeline import make_pipeline
 from tensorflow.keras.models import load_model
 from sklearn.metrics import accuracy_score
 
-model_save_path = 'C:/Program Files/Microsoft VS Code/RGR/streamlit-models/'
+model_save_path = 'streamlit-models/'
 
 smoke_detector_data = pd.read_csv('smoke_detector.csv')
 smoke_detector_data.columns = smoke_detector_data.columns.str.replace('[', '').str.replace(']', '').str.replace('<', '')
